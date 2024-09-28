@@ -17,8 +17,8 @@ class UserInfor extends React.Component{
     }
     render(){
         return(
-            <div md="12">
-                <div md="8">
+            <div>
+                <div>
                 My name is {this.state.name} i am from {this.state.address} im {this.state.age}
                 <form onSubmit={(event)=> this.handldeSubmit(event)}>
                     <input type='text' onChange={(event) => this.handleInput(event)} />

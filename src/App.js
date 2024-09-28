@@ -1,5 +1,6 @@
 import MyComponent from './component/MyComponent';
 
+
 const App = () => {
   return (
     <div>

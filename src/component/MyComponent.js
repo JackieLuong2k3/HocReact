@@ -5,9 +5,9 @@ import List from './List'
 
 class MyComponent extends React.Component {
     listUser =[
-        {name: "trang thoi", age:18},
-        {name: "jakie", age:18},
-        {name: "quynh", age:22},
+        {id:1, name: "trang thoi", age:16},
+        {id:2,name: "jakie", age:18},
+        {id:3,name: "quynh", age:21},
         
     ]
 
@@ -17,7 +17,6 @@ class MyComponent extends React.Component {
                 <UserInfor/>
                 <hr/>
                 <List listUser={this.listUser}></List>
-                <hr/>
             </div>
             
             
