@@ -1,10 +1,9 @@
-import MyComponent from './component/MyComponent';
-
+import Header from "./header/Header";
 
 const App = () => {
   return (
     <div>
-      <MyComponent />
+      <Header></Header>
     </div>
   );
 };
