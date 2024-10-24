@@ -18,7 +18,7 @@ const Header = () => {
             <NavLink to='admin' className='nav-link'>Admin</NavLink>
           </Nav>
           <Button className='btn btn-dark'>Sign up</Button>
-          <button className='btn-login'>Log in</button>
+          <button className='btn btn-light'>Log in</button>
 
           <Nav>
             <NavDropdown title="Settings" id="basic-nav-dropdown">
