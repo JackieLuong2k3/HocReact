@@ -1,9 +1,18 @@
-import Header from "./header/Header";
+
+
+import { Outlet } from 'react-router-dom'
+import Header from './header/header';
+import "./App.scss"
 
 const App = () => {
   return (
-    <div>
+    <div className="app-container">
+    <div className="header">
       <Header></Header>
+    </div>
+    <div className="content">
+      <Outlet/>
+    </div>
     </div>
   );
 };
