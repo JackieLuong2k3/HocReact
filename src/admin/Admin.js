@@ -2,6 +2,7 @@ import { useState } from "react";
 import SideBarAdmin from "../admin/Sidebar";
 import "../admin/Sidebar.scss";
 import { FaHeart, FaBars } from 'react-icons/fa';
+import { Outlet } from 'react-router-dom'
 
 
 const Admin =() =>{
@@ -13,8 +14,13 @@ const Admin =() =>{
     return(
         <div className="sidebar-admin">
             <SideBarAdmin collapsed={toggle}/>
-            <div className="btn-toggle" onClick={handleToggleSidebar}>
-            <FaBars />
+            <div>
+            <div className="btn-toggle" >                
+            <FaBars onClick={handleToggleSidebar} />
+            </div>
+            <div className="content-manager" >
+                <Outlet></Outlet>
+            </div>
             </div>
         </div>
         

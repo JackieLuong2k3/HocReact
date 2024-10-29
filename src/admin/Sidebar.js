@@ -12,6 +12,8 @@ import sidebarBg from '../assets/bg2.jpg';
 import 'react-pro-sidebar/dist/css/styles.css';
 import { DiReact } from 'react-icons/di';
 import { IoIosAperture } from 'react-icons/io';
+import { Link } from "react-router-dom";
+
 
 const SideBarAdmin = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
   return (
@@ -48,6 +50,7 @@ const SideBarAdmin = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) =
               icon={<FaTachometerAlt />}
               suffix={<span className="badge red">New</span>}
             >
+                            <Link to="dashboard"/>
               Dashboard
             </MenuItem>
             <MenuItem icon={<FaGem />}> Component</MenuItem>
@@ -57,7 +60,10 @@ const SideBarAdmin = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) =
             title="Feature"
             icon={<FaList/>}
             >
-              <MenuItem>Manager User</MenuItem>
+              <MenuItem>
+              <Link to="manage-user"/>
+              Manager User
+              </MenuItem>
               <MenuItem>Manager Quiz</MenuItem>
               <MenuItem>Manager Question</MenuItem>
 
