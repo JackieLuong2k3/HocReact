@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -7,8 +8,27 @@ import { Link, NavLink } from "react-router-dom";
 
 
 const Header = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 56) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    // Cleanup the event listener
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
-    <Navbar expand="lg" className="bg-body-tertiary">
+    <Navbar expand="lg" className={`fixed-top ${isScrolled ? 'navbar-scrolled' : ''}`}>
       <Container>
         <NavLink className="navbar-brand" to="/">Quynh</NavLink>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

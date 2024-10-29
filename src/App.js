@@ -7,7 +7,7 @@ import "./App.scss"
 const App = () => {
   return (
     <div className="app-container">
-    <div className="header">
+    <div className="header ">
       <Header></Header>
     </div>
     <div className="content">

@@ -1,6 +1,9 @@
-const User =() =>{
-    return(
-        <div>user</div>
-    )
+import '../users/User.scss';
+
+const User = () => {
+    return (
+      <div>user</div>
+    );
 }
+
 export default User;

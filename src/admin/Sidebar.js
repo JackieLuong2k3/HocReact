@@ -10,6 +10,8 @@ import {
 import { FaTachometerAlt, FaGem, FaList, FaGithub, FaRegLaughWink, FaHeart } from 'react-icons/fa';
 import sidebarBg from '../assets/bg2.jpg';
 import 'react-pro-sidebar/dist/css/styles.css';
+import { DiReact } from 'react-icons/di';
+import { IoIosAperture } from 'react-icons/io';
 
 const SideBarAdmin = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) => {
   return (
@@ -35,7 +37,8 @@ const SideBarAdmin = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) =
               whiteSpace: 'nowrap',
             }}
           >
-            Hoi dan IT
+            <IoIosAperture  color='00bfff' size={"3em"}></IoIosAperture>
+            <span>Hoi dan IT</span>
           </div>
         </SidebarHeader>
 
@@ -49,9 +52,19 @@ const SideBarAdmin = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) =
             </MenuItem>
             <MenuItem icon={<FaGem />}> Component</MenuItem>
           </Menu>
+          <Menu iconShape='circle'>
+            <SubMenu 
+            title="Feature"
+            icon={<FaList/>}
+            >
+              <MenuItem>Manager User</MenuItem>
+              <MenuItem>Manager Quiz</MenuItem>
+              <MenuItem>Manager Question</MenuItem>
 
+            </SubMenu>
+          </Menu>
+         
         </SidebarContent>
-
         <SidebarFooter style={{ textAlign: 'center' }}>
           <div
             className="sidebar-btn-wrapper"
@@ -70,6 +83,7 @@ const SideBarAdmin = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) =
                 view source</span>
             </a>
           </div>
+          
         </SidebarFooter>
       </ProSidebar>
     </div>
