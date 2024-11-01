@@ -3,7 +3,7 @@ import SideBarAdmin from "../admin/Sidebar";
 import "../admin/Sidebar.scss";
 import { FaHeart, FaBars } from 'react-icons/fa';
 import { Outlet } from 'react-router-dom'
-
+import "../admin/Admin.scss"
 
 const Admin =() =>{
     const [toggle, setToggle] = useState(true);
@@ -14,7 +14,7 @@ const Admin =() =>{
     return(
         <div className="sidebar-admin">
             <SideBarAdmin collapsed={toggle}/>
-            <div>
+            <div className="container-content">
             <div className="btn-toggle" >                
             <FaBars onClick={handleToggleSidebar} />
             </div>

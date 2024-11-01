@@ -1,0 +1,25 @@
+.image-preview{
+    border-style: dotted;
+    justify-content: center;
+    display: flex;
+    height: 200px;
+    align-items: center;
+    img{
+        max-width: 100%;
+        max-height: 100%;
+    }
+}
+.uploadImg{
+    display: flex;
+    align-items: center;
+    background-color: #ececece8;
+    width: fit-content;
+    border-radius: 5px;
+    
+    .label-upload{
+        padding-left: 5px;   
+    }
+    &:hover{
+        background-color: #747677;
+    }
+}

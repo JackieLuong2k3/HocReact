@@ -1,0 +1,14 @@
+.sidebar-admin{
+    .container-content{
+        width: 100%;
+        .btn-toggle{
+        border: red 2px solid;    
+        padding: 5px;
+        }    
+        .content-manager{
+        border: green 2px solid; 
+        padding: 5px;
+        margin-top: 10px;
+        }
+    }
+}
