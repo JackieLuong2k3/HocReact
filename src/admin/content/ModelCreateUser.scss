@@ -10,16 +10,20 @@
     }
 }
 .uploadImg{
-    display: flex;
-    align-items: center;
+   
     background-color: #ececece8;
     width: fit-content;
     border-radius: 5px;
-    
     .label-upload{
-        padding-left: 5px;   
-    }
+        display: flex;
+        align-items: center;
+        gap: 3px;    }
     &:hover{
         background-color: #747677;
     }
+}
+.btn-add{
+    display: flex;
+    align-items: center;
+    gap: 3px;
 }

@@ -6,23 +6,52 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import '../content/ModelCreateUser.scss'
 import { FcPlus } from 'react-icons/fc';
+import axios from 'axios';
 
 const ModalCreateUser = () => {
     const [lgShow, setLgShow] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [username, setUsernam] = useState("");
-    const [role, setRole] = useState("");
+    const [username, setUsername] = useState("");
+    const [role, setRole] = useState("User");
     const [img, setImg] = useState("");
     const [previewImg, setPreviewImg] = useState("");
 
-    const handleUpLoadImg = (event)=>{
+    const handleUpLoadImg = (event) => {
+        setImg(event.target.files[0])
         setPreviewImg(URL.createObjectURL(event.target.files[0]))
+    }
+    const handleClose = () =>{
+        setLgShow(false)
+        setEmail("")
+        setPassword("");
+        setUsername("")
+        setRole("User")
+        setImg("")
+        setPreviewImg("")
+    }
+    const handleCreateUser = async (event) => {
+        // validate
+
+        //call api
+        // const data ={
+        //     email: email,
+        //     password:password,
+        //     username:username,
+        //     role:role,
+        //     img:img
+        // }
+        // console.log(data)
+
+
+
+        let res = await 
+        console.log("check----", res)
     }
     return (
         <div>
 
-            <Button onClick={() => setLgShow(true)}>Add new user</Button>
+            <Button className='btn-add' onClick={() => setLgShow(true)}> <FcPlus></FcPlus>Add new user</Button>
 
             <Modal
                 size="xl"
@@ -45,19 +74,19 @@ const ModalCreateUser = () => {
 
                             <Form.Group as={Col} controlId="formGridPassword">
                                 <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" placeholder="Password" value={password} onChange={(e) => setEmail(e.target.value)} />
+                                <Form.Control type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
                             </Form.Group>
                         </Row>
                         <Row className="mb-3">
                             <Form.Group as={Col} controlId="formGridAddress1">
                                 <Form.Label>Username</Form.Label>
-                                <Form.Control placeholder="Username" value={username} onChange={(e) => setEmail(e.target.value)} />
+                                <Form.Control placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
                             </Form.Group>
 
 
                             <Form.Group as={Col} controlId="formGridState">
                                 <Form.Label>Role</Form.Label>
-                                <Form.Select defaultValue="User" onChange={(e)=> setRole(e.target.value)}>
+                                <Form.Select defaultValue="" value={role} onChange={(e) => setRole(e.target.value)}>
                                     <option>Admin</option>
                                     <option>User</option>
                                 </Form.Select>
@@ -67,16 +96,16 @@ const ModalCreateUser = () => {
                             <Form.Label className='uploadImg'>
                                 <label className='label-upload' htmlFor='labelUp'><FcPlus />Upload Image</label>
                             </Form.Label>
-                            <input type='file' hidden id='labelUp' value={img} onChange={(e)=>handleUpLoadImg(e)} />
+                            <input type='file' hidden id='labelUp' onChange={(e) => handleUpLoadImg(e)} />
                         </Form.Group>
                         <div className='image-preview'>
-                            {previewImg ? 
+                            {previewImg ?
                                 <img src={previewImg} alt="Preview" />
-                             : 
+                                :
                                 <span>Preview Image</span>
                             }
                         </div>
-                        <Button variant="primary" type="submit">
+                        <Button variant="primary" type="button" onClick={() => handleCreateUser()}>
                             Submit
                         </Button>
                     </Form>
