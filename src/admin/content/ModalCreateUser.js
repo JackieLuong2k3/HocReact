@@ -6,8 +6,9 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import '../content/ModelCreateUser.scss'
 import { FcPlus } from 'react-icons/fc';
+import { postCreateUser } from '../../service/apiService';
+import { toast } from 'react-toastify';
 import axios from 'axios';
-
 const ModalCreateUser = () => {
     const [lgShow, setLgShow] = useState(false);
     const [email, setEmail] = useState("");
@@ -17,6 +18,13 @@ const ModalCreateUser = () => {
     const [img, setImg] = useState("");
     const [previewImg, setPreviewImg] = useState("");
 
+    const validateEmail = (email) => {
+        return String(email)
+          .toLowerCase()
+          .match(
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+          );
+      };
     const handleUpLoadImg = (event) => {
         setImg(event.target.files[0])
         setPreviewImg(URL.createObjectURL(event.target.files[0]))
@@ -30,23 +38,27 @@ const ModalCreateUser = () => {
         setImg("")
         setPreviewImg("")
     }
-    const handleCreateUser = async (event) => {
+    
+    const handleCreateUser = async () => {
         // validate
+        const isInvaliEmail = validateEmail(email);
+        if (!isInvaliEmail) {
+            toast.error("invalid email")
+            return;
+        }
+        if(password==null){
+            toast.error("invalid password")
 
-        //call api
-        // const data ={
-        //     email: email,
-        //     password:password,
-        //     username:username,
-        //     role:role,
-        //     img:img
-        // }
-        // console.log(data)
-
-
-
-        let res = await 
-        console.log("check----", res)
+        }
+        // get api
+        let data = await postCreateUser(email,password,username,role,img);
+        if(data && data.EC==0){
+            toast.success(data.EM)
+            handleClose()
+        }
+        if(data && data.EC!==0){
+            toast.error(data.EM)
+        }
     }
     return (
         <div>
@@ -56,7 +68,7 @@ const ModalCreateUser = () => {
             <Modal
                 size="xl"
                 show={lgShow}
-                onHide={() => setLgShow(false)}
+                onHide={() => handleClose()}
                 aria-labelledby="example-modal-sizes-title-lg"
             >
                 <Modal.Header closeButton>
