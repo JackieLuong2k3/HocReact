@@ -1,10 +1,12 @@
 import ModalCreateUser from "./ModalCreateUser"
-
+import TableUser from '../content/TableUser'
 const ManageUser = () => {
   return (
     <div>
       <ModalCreateUser/>
-      <div>List User</div>
+      <div className="table-user">
+        <TableUser></TableUser>
+      </div>
     </div>
   )
 }

@@ -25,6 +25,7 @@ const SideBarAdmin = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) =
         toggled={toggled}
         breakPoint="md"
         onToggle={handleToggleSidebar}
+        className='side-bar'
       >
         <SidebarHeader>
           <div

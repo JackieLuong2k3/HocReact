@@ -1,5 +1,6 @@
 .sidebar-admin{
-    .container-content{
+        .container-content{
+        overflow-y: auto; 
         width: 100%;
         .btn-toggle{
         border: red 2px solid;    

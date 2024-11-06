@@ -1,4 +1,5 @@
-.sidebar-admin{
+.sidebar-admin {
     display: flex;
     height: 100vh;
+    overflow-y: auto; /* Allows scrolling if content is long */
 }

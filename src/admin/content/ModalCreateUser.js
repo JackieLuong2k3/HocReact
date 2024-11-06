@@ -9,6 +9,7 @@ import { FcPlus } from 'react-icons/fc';
 import { postCreateUser } from '../../service/apiService';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 const ModalCreateUser = () => {
     const [lgShow, setLgShow] = useState(false);
     const [email, setEmail] = useState("");
@@ -17,6 +18,7 @@ const ModalCreateUser = () => {
     const [role, setRole] = useState("User");
     const [img, setImg] = useState("");
     const [previewImg, setPreviewImg] = useState("");
+    const navigate = useNavigate();
 
     const validateEmail = (email) => {
         return String(email)
@@ -37,6 +39,7 @@ const ModalCreateUser = () => {
         setRole("User")
         setImg("")
         setPreviewImg("")
+        navigate("/admin/manage-user");
     }
     
     const handleCreateUser = async () => {
@@ -55,6 +58,7 @@ const ModalCreateUser = () => {
         if(data && data.EC==0){
             toast.success(data.EM)
             handleClose()
+            
         }
         if(data && data.EC!==0){
             toast.error(data.EM)
