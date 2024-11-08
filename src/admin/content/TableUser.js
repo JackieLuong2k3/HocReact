@@ -1,21 +1,10 @@
 import { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
-import { getAllUser } from '../../service/apiService';
 import { Button } from 'react-bootstrap';
 
 
-const TableUser = () => {
-    const [listusers, setListUsers] = useState([]);
-
-    useEffect(() => {
-        fetchAllUser()
-    }, [])
-    const fetchAllUser = async () => {
-        let res = await getAllUser()
-        setListUsers(res.DT)
-        console.log(res.DT)
-    }
-    console.log("render view")
+const TableUser = (props) => {
+    const {listusers} =props
     return (
         <Table striped bordered hover size="lg">
             <thead>
@@ -28,15 +17,15 @@ const TableUser = () => {
                 </tr>
             </thead>
             <tbody>
-                {listusers.map((user, index) => {
+                {listusers.map((item, index) => {
                     return (
-                        <tr>
-                            <td>{user.id}</td>
-                            <td>{user.email}</td>
-                            <td>{user.username}</td>
-                            <td>{user.role}</td>
+                        <tr key={item.id}>
+                            <td>{item.id}</td>
+                            <td>{item.email}</td>
+                            <td>{item.username}</td>
+                            <td>{item.role}</td>
                             <td colSpan={1}><Button className='btn-warning'>Delete</Button> 
-                            <Button className='btn-danger'>Edit</Button>
+                            <Button className='btn-danger' onClick={()=>{props.handleBtnUpdate(item)}} >Update</Button>
                             <Button className='btn-secondary'>View</Button>
                             </td>
                         </tr>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
@@ -8,30 +8,34 @@ import '../content/ModelCreateUser.scss'
 import { FcPlus } from 'react-icons/fc';
 import { postCreateUser } from '../../service/apiService';
 import { toast } from 'react-toastify';
-const ModalCreateUser = (props) => {
-    const [lgShow, setLgShow] = useState(false);
+import _ from "lodash"
+
+const ModalUpdateUser = (props) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [username, setUsername] = useState("");
     const [role, setRole] = useState("USER");
     const [img, setImg] = useState("");
     const [previewImg, setPreviewImg] = useState("");
+    const {setShow,dataUpdate} =props
+   
 
-    const validateEmail = (email) => {
-        return String(email)
-          .toLowerCase()
-          .match(
-            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-          );
-      };
+    useEffect(()=>{
+        if (!_.isEmpty(dataUpdate)) {
+            setEmail(dataUpdate.email)
+            setUsername(dataUpdate.username)
+            setRole(dataUpdate.role)
+            setPreviewImg(`data:image/jpeg;base64,${dataUpdate.image}`)  
+        }
+            },[dataUpdate])
     const handleUpLoadImg = (event) => {
         setImg(event.target.files[0])
         setPreviewImg(URL.createObjectURL(event.target.files[0]))
     }
     const handleClose = () =>{
-        setLgShow(false)
+        setShow(false)
         setEmail("")
-        setPassword("");
+        setPassword("")
         setUsername("")
         setRole("User")
         setImg("")
@@ -39,41 +43,31 @@ const ModalCreateUser = (props) => {
     }
     
     const handleCreateUser = async () => {
-        // validate
-        const isInvaliEmail = validateEmail(email);
-        if (!isInvaliEmail) {
-            toast.error("invalid email")
-            return;
-        }
-        if(password==null){
-            toast.error("invalid password")
-
-        }
+       
         // get api
         let data = await postCreateUser(email,password,username,role,img);
-        if(data && data.EC==0){
+        if(data && data.EC===0){
             toast.success(data.EM)
             handleClose()
-            props.fetchAllUser();
+            
         }
         if(data && data.EC!==0){
             toast.error(data.EM)
         }
     }
+    console.log("render data: ", dataUpdate)
+
     return (
         <div>
-
-            <Button className='btn-add' onClick={() => setLgShow(true)}> <FcPlus></FcPlus>Add new user</Button>
-
             <Modal
                 size="xl"
-                show={lgShow}
-                onHide={() => handleClose()}
+                show={props.show}
+                onHide={handleClose}
                 aria-labelledby="example-modal-sizes-title-lg"
             >
                 <Modal.Header closeButton>
                     <Modal.Title id="example-modal-sizes-title-lg">
-                        Add User
+                        Update User
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -81,12 +75,12 @@ const ModalCreateUser = (props) => {
                         <Row className="mb-3">
                             <Form.Group as={Col} controlId="formGridEmail">
                                 <Form.Label>Email</Form.Label>
-                                <Form.Control type="email" placeholder="Enter email" value={email} onChange={(e)=>{setEmail(e.target.value)}} />
+                                <Form.Control disabled type="email" placeholder="Enter email" value={email} onChange={(e) => setEmail(e.target.value)} />
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="formGridPassword">
                                 <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                                <Form.Control disabled type="password" placeholder="Password" value="**********" onChange={(e) => setPassword(e.target.value)} />
                             </Form.Group>
                         </Row>
                         <Row className="mb-3">
@@ -98,9 +92,9 @@ const ModalCreateUser = (props) => {
 
                             <Form.Group as={Col} controlId="formGridState">
                                 <Form.Label>Role</Form.Label>
-                                <Form.Select value={role} onChange={(e)=>{setRole(e.target.value)}}>
-                                <option value="ADMIN">ADMIN</option>
-                                <option value="USER">USER</option>
+                                <Form.Select value={role} onChange={(e) => setRole(e.target.value)}>
+                                    <option value="ADMIN">ADMIN</option>
+                                    <option value="USER">USER</option>
                                 </Form.Select>
                             </Form.Group>
                         </Row >
@@ -126,4 +120,4 @@ const ModalCreateUser = (props) => {
         </div>
     )
 }
-export default ModalCreateUser
+export default ModalUpdateUser
