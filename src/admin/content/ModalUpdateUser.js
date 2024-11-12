@@ -17,13 +17,13 @@ const ModalUpdateUser = (props) => {
     const [role, setRole] = useState("USER");
     const [img, setImg] = useState("");
     const [previewImg, setPreviewImg] = useState("");
-    const { setShow, dataUpdate,resetDataUpdate } = props
+    const { setShow, dataUpdate, resetDataUpdate } = props
 
 
     useEffect(() => {
         if (!_.isEmpty(dataUpdate)) {
             setEmail(dataUpdate.email || "");
-        setPassword(dataUpdate.password || "");
+            setPassword(dataUpdate.password || "");
             setUsername(dataUpdate.username)
             setRole(dataUpdate.role)
             if (dataUpdate.image) {
@@ -48,7 +48,6 @@ const ModalUpdateUser = (props) => {
     }
 
     const handleUpdateUser = async () => {
-
         // get api
         let data = await putUpdateUser(dataUpdate.id, username, role, img);
         if (data && data.EC === 0) {
