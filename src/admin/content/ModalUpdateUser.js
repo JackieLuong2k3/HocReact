@@ -6,7 +6,7 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import '../content/ModelCreateUser.scss'
 import { FcPlus } from 'react-icons/fc';
-import { postCreateUser } from '../../service/apiService';
+import { postCreateUser, putUpdateUser } from '../../service/apiService';
 import { toast } from 'react-toastify';
 import _ from "lodash"
 
@@ -17,22 +17,26 @@ const ModalUpdateUser = (props) => {
     const [role, setRole] = useState("USER");
     const [img, setImg] = useState("");
     const [previewImg, setPreviewImg] = useState("");
-    const {setShow,dataUpdate} =props
-   
+    const { setShow, dataUpdate,resetDataUpdate } = props
 
-    useEffect(()=>{
+
+    useEffect(() => {
         if (!_.isEmpty(dataUpdate)) {
-            setEmail(dataUpdate.email)
+            setEmail(dataUpdate.email || "");
+        setPassword(dataUpdate.password || "");
             setUsername(dataUpdate.username)
             setRole(dataUpdate.role)
-            setPreviewImg(`data:image/jpeg;base64,${dataUpdate.image}`)  
+            if (dataUpdate.image) {
+                setPreviewImg(`data:image/jpeg;base64,${dataUpdate.image}`)
+            }
+
         }
-            },[dataUpdate])
+    }, [dataUpdate])
     const handleUpLoadImg = (event) => {
         setImg(event.target.files[0])
         setPreviewImg(URL.createObjectURL(event.target.files[0]))
     }
-    const handleClose = () =>{
+    const handleClose = () => {
         setShow(false)
         setEmail("")
         setPassword("")
@@ -40,22 +44,22 @@ const ModalUpdateUser = (props) => {
         setRole("User")
         setImg("")
         setPreviewImg("")
+        resetDataUpdate()
     }
-    
-    const handleCreateUser = async () => {
-       
+
+    const handleUpdateUser = async () => {
+
         // get api
-        let data = await postCreateUser(email,password,username,role,img);
-        if(data && data.EC===0){
+        let data = await putUpdateUser(dataUpdate.id, username, role, img);
+        if (data && data.EC === 0) {
             toast.success(data.EM)
             handleClose()
-            
+            props.fetchAllUser()
         }
-        if(data && data.EC!==0){
+        if (data && data.EC !== 0) {
             toast.error(data.EM)
         }
     }
-    console.log("render data: ", dataUpdate)
 
     return (
         <div>
@@ -75,12 +79,12 @@ const ModalUpdateUser = (props) => {
                         <Row className="mb-3">
                             <Form.Group as={Col} controlId="formGridEmail">
                                 <Form.Label>Email</Form.Label>
-                                <Form.Control disabled type="email" placeholder="Enter email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                                <Form.Control disabled type="email" placeholder="Enter email" value={email || ""} onChange={(e) => setEmail(e.target.value)} />
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="formGridPassword">
                                 <Form.Label>Password</Form.Label>
-                                <Form.Control disabled type="password" placeholder="Password" value="**********" onChange={(e) => setPassword(e.target.value)} />
+                                <Form.Control disabled type="password" placeholder="Password" value={password || ""} onChange={(e) => setPassword(e.target.value)} />
                             </Form.Group>
                         </Row>
                         <Row className="mb-3">
@@ -111,7 +115,7 @@ const ModalUpdateUser = (props) => {
                                 <span>Preview Image</span>
                             }
                         </div>
-                        <Button variant="primary" type="button" onClick={() => handleCreateUser()}>
+                        <Button variant="primary" type="button" onClick={() => handleUpdateUser()}>
                             Submit
                         </Button>
                     </Form>

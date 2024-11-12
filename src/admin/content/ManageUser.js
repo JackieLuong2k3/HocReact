@@ -20,7 +20,9 @@ const ManageUser = () => {
   const handleBtnUpdate=(user)=>{
     setShowModelUpdate(true)
     setDataUpdate(user)
-    console.log(user)
+  }
+  const resetDataUpdate=()=>{
+    setDataUpdate({})
   }
   return (
     <div>
@@ -36,6 +38,8 @@ const ManageUser = () => {
       show={showModalUpdate}
       setShow={setShowModelUpdate}
       dataUpdate={dataUpdate}
+      fetchAllUser={fetchAllUser}
+      resetDataUpdate={resetDataUpdate}
       />
     </div>
   )
