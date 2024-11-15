@@ -26,8 +26,8 @@ const ManageUser = () => {
     setDataUpdate(user)
   }
   const handleBtnDelete=(user)=>{
-    console.log(user)
-    
+    setShowModalDelete(true)
+    setDataDelete(user)
   }
   const resetDataUpdate=()=>{
     setDataUpdate({})
