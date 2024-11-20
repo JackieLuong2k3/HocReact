@@ -1,6 +1,6 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { deleteUser } from '../../service/apiService';
+import { deleteUser } from '../../../service/apiService';
 import { toast } from 'react-toastify';
 
 function ModalDeleteUser(props) {

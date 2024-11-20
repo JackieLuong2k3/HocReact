@@ -57,11 +57,18 @@ position: fixed
     .navbar-scrolled {
       background-color: black;
       box-shadow: 0 2px 10px rgba(47, 47, 47, 0.1);
-    
-      .nav-link {
-        &.active {
-          color: #61dafb !important;
+      &.navbar {
+        .nav-link,
+        .navbar-brand {
+          color: white; // Text and brand color when scrolled
+          transition: color 0.3s ease; // Ensure smooth transition
         }
+      }
+      
+    }
+    .nav-link {
+      &.active {
+        color: #61dafb !important;
       }
     }
   }

@@ -8,9 +8,8 @@ import {
   SidebarContent,
 } from 'react-pro-sidebar';
 import { FaTachometerAlt, FaGem, FaList, FaGithub, FaRegLaughWink, FaHeart } from 'react-icons/fa';
-import sidebarBg from '../assets/bg2.jpg';
+import sidebarBg from '../../assets/bg2.jpg';
 import 'react-pro-sidebar/dist/css/styles.css';
-import { DiReact } from 'react-icons/di';
 import { IoIosAperture } from 'react-icons/io';
 import { Link } from "react-router-dom";
 

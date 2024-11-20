@@ -1,0 +1,101 @@
+import { useEffect, useState } from 'react';
+import ReactDOM from 'react-dom';
+import ReactPaginate from 'react-paginate';
+import Table from 'react-bootstrap/Table';
+import { Button } from 'react-bootstrap';
+import 'react-paginate/dist/react-paginate.css';
+
+const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+
+function Items({ currentItems }) {
+  return (
+    <>
+      {currentItems &&
+        currentItems.map((item) => (
+          <div>
+            <h3>Item #{item}</h3>
+          </div>
+        ))}
+    </>
+  );
+}
+
+function PaginatedItems({ itemsPerPage }) {
+  // Here we use item offsets; we could also use page offsets
+  // following the API or data you're working with.
+  const [itemOffset, setItemOffset] = useState(0);
+
+  // Simulate fetching items from another resources.
+  // (This could be items from props; or items loaded in a local state
+  // from an API endpoint with useEffect and useState)
+  const endOffset = itemOffset + itemsPerPage;
+  console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+  const currentItems = items.slice(itemOffset, endOffset);
+  const pageCount = Math.ceil(items.length / itemsPerPage);
+
+  // Invoke when user click to request another page.
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * itemsPerPage) % items.length;
+    console.log(
+      `User requested page number ${event.selected}, which is offset ${newOffset}`
+    );
+    setItemOffset(newOffset);
+  };
+
+  return (
+    <>
+      <Items currentItems={currentItems} />
+      <ReactPaginate
+        breakLabel="..."
+        nextLabel="next >"
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={5}
+        pageCount={pageCount}
+        previousLabel="< previous"
+        renderOnZeroPageCount={null}
+      />
+    </>
+  );
+}
+
+  const TableUserPaginate = (props) => {
+    const {listusers} =props
+    return (
+        <Table striped bordered hover size="lg">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {listusers.map((item, index) => {
+                    return (
+                        <tr key={item.id}>
+                            <td>{item.id}</td>
+                            <td>{item.username}</td>
+                            <td>{item.email}</td>
+                            <td>{item.role}</td>
+                            <td colSpan={1}><Button className='btn-warning' onClick={()=>{props.handleBtnDelete(item)}}>Delete</Button> 
+                            <Button className='btn-danger' onClick={()=>{props.handleBtnUpdate(item)}} >Update</Button>
+                            <Button className='btn-secondary'>View</Button>
+                            </td>
+                        </tr>
+                    )
+                })}
+                {listusers && listusers.length === 0 &&
+                    <tr>
+                        <td colSpan={4}>Not found data</td>
+                    </tr>
+                }
+            </tbody>
+            <PaginatedItems itemsPerPage={4}/>
+        </Table>
+          
+    )
+}
+
+export default TableUserPaginate

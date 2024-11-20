@@ -5,11 +5,14 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import User from './users/User';
-import Admin from './admin/Admin'
-import Home from './home/Home';
-import Dashboard from './admin/content/Dashboard'
-import ManageUser from './admin/content/ManageUser'
+import User from './components/users/User';
+import Admin from './components/admin/Admin'
+import Home from './components/home/Home';
+import Dashboard from './components/admin/content/Dashboard'
+import ManageUser from './components/admin/content/ManageUser'
+import Login from './components/Auth/Login'
+import Signup from './components/Auth/Signup'
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -20,11 +23,13 @@ root.render(
                 <Route path='user' element={<User />} />
             </Route>
             <Route path='admin' element={<Admin />} >
-            <Route index element ={<Dashboard/>}></Route>
-            <Route path='manage-user' element={<ManageUser />} />
-            <Route path='dashboard' element={<Dashboard />} />
-
+                <Route index element ={<Dashboard/>}></Route>
+                <Route path='manage-user' element={<ManageUser />} />
+                <Route path='dashboard' element={<Dashboard />} />
             </Route>
+            <Route path='login' element={<Login />} />
+            <Route path='signup' element={<Signup />} />
+
 
         </Routes>
     </BrowserRouter>

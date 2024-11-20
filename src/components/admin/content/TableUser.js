@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import { Button } from 'react-bootstrap';
 
-
 const TableUser = (props) => {
     const {listusers} =props
     return (
@@ -37,6 +36,8 @@ const TableUser = (props) => {
                     </tr>
                 }
             </tbody>
-        </Table>)
+        </Table>
+          
+    )
 }
 export default TableUser;

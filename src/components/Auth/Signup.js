@@ -1,18 +1,23 @@
-import '../Auth/Login.scss'
-import { FaUser, FaLock } from 'react-icons/fa'
-const Login = () => {
-    return (
-        <div className="container-login">
+import "../Auth/Signup.scss"
+import { FaEye,FaEyeSlash } from 'react-icons/fa'
+
+const Signup=()=>{
+    return(
+        <div>
+            <div className="container-login">  
             <div className='wrapper'>
             <form action="">
-                <h1>Login</h1>
+                <h1>Sign Up</h1>
+                <div className="input-class">
+                    <input type="text" placeholder="Email"></input>
+                </div>
                 <div className="input-class">
                     <input type="text" placeholder="Username"></input>
-                    <FaUser className='icon' />
                 </div>
                 <div className="input-class">
                     <input type="password" placeholder="Password"></input>
-                    <FaLock className='icon' />
+                    <FaEye className="icon"/>
+                    <FaEyeSlash className="icon"/>
                 </div>
                 <div className="remember-forgot">
                     <label><input type="checkbox" />Remember me</label>
@@ -25,7 +30,7 @@ const Login = () => {
             </form>
             </div>
         </div>
-
+        </div>
     )
 }
-export default Login
+export default Signup

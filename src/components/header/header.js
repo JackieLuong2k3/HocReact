@@ -4,12 +4,12 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-
+  const navigate =useNavigate();
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 56) {
@@ -26,6 +26,12 @@ const Header = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+  const handleLoginBtn=()=>{
+    navigate("login")
+  }
+  const handleSignupBtn=()=>{
+    navigate("signup")
+  }
 
   return (
     <Navbar expand="lg" className={`fixed-top ${isScrolled ? 'navbar-scrolled' : ''}`}>
@@ -37,8 +43,8 @@ const Header = () => {
             <NavLink to='user' className='nav-link'>User</NavLink>
             <NavLink to='admin' className='nav-link'>Admin</NavLink>
           </Nav>
-          <Button className='btn btn-dark'>Sign up</Button>
-          <button className='btn btn-light'>Log in</button>
+          <Button className='btn btn-dark' onClick={handleSignupBtn}>Sign up</Button>
+          <Button className='btn btn-light'onClick={handleLoginBtn}>Log in</Button>
 
           <Nav>
             <NavDropdown title="Settings" id="basic-nav-dropdown">

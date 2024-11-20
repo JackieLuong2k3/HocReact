@@ -1,5 +1,5 @@
 import { Button } from 'react-bootstrap';
-import videoHomepage from '../assets/video-homepage.mp4'
+import videoHomepage from '../../assets/video-homepage.mp4'
 
 const Home = () => {
     return (

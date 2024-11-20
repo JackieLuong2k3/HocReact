@@ -6,7 +6,7 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import '../content/ModelCreateUser.scss'
 import { FcPlus } from 'react-icons/fc';
-import { postCreateUser, putUpdateUser } from '../../service/apiService';
+import { postCreateUser, putUpdateUser } from '../../../service/apiService';
 import { toast } from 'react-toastify';
 import _ from "lodash"
 
