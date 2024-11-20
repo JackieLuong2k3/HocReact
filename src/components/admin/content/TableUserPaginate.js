@@ -11,7 +11,7 @@ function Items({ currentItems }) {
       {currentItems &&
         currentItems.map((item) => (
           <div>
-            <h3>Item #{item}</h3>
+            <h3>Item #x{item}</h3>
           </div>
         ))}
     </>
