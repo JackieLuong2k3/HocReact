@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
-import ReactDOM from 'react-dom';
 import ReactPaginate from 'react-paginate';
 import Table from 'react-bootstrap/Table';
 import { Button } from 'react-bootstrap';
-import 'react-paginate/dist/react-paginate.css';
 
 const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
 
