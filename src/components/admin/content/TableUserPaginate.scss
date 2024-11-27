@@ -1,0 +1,10 @@
+.paginate {
+    position: fixed; /* Cố định vị trí */
+    bottom: 40px; /* Cách đáy màn hình 20px */
+    left: 50%; /* Đặt ở giữa màn hình theo chiều ngang */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Đảm bảo nằm trên các thành phần khác */
+  }
+  

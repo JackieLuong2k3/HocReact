@@ -30,4 +30,7 @@ const deleteUser= (userid)=>{
 const getAllUser= ()=>{
     return axios.get("api/v1/participant/all")
 }
-export {postCreateUser,getAllUser,putUpdateUser,deleteUser} 
+const getAllUserPaginate= (page , limit)=>{
+    return axios.get(`api/v1/participant?page=${page}&limit=${limit}`)
+}
+export {postCreateUser,getAllUser,putUpdateUser,deleteUser,getAllUserPaginate} 
