@@ -13,7 +13,7 @@ function ModalDeleteUser(props) {
     if (data && data.EC === 0) {
       toast.success(data.EM)
       handleClose()
-      props.fetchAllUser()
+      props.fetchAllUser(props.currentPage,props.pagelimit)
     }
     if (data && data.EC !== 0) {
       toast.error(data.EM)

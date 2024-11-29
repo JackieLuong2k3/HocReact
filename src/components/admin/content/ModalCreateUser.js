@@ -33,7 +33,7 @@ const ModalCreateUser = (props) => {
         setEmail("")
         setPassword("");
         setUsername("")
-        setRole("User")
+        setRole("USER")
         setImg("")
         setPreviewImg("")
     }
@@ -51,6 +51,8 @@ const ModalCreateUser = (props) => {
         }
         // get api
         let data = await postCreateUser(email,password,username,role,img);
+        console.log(data);
+        
         if(data && data.EC==0){
             toast.success(data.EM)
             handleClose()
