@@ -4,12 +4,16 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import { useSelector } from 'react-redux';
 import { Link, NavLink, useNavigate } from "react-router-dom";
 
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const navigate =useNavigate();
+  const account=useSelector(state=>state.user.account)
+  const isAuthenticated=useSelector(state=>state.user.isAuthenticated)
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 56) {
@@ -43,11 +47,8 @@ const Header = () => {
             <NavLink to='user' className='nav-link'>User</NavLink>
             <NavLink to='admin' className='nav-link'>Admin</NavLink>
           </Nav>
-          <Button className='btn btn-dark' onClick={handleSignupBtn}>Sign up</Button>
-          <Button className='btn btn-light'onClick={handleLoginBtn}>Log in</Button>
-
-          <Nav>
-            <NavDropdown title="Settings" id="basic-nav-dropdown">
+          {isAuthenticated? <Nav>
+            <NavDropdown title={`${account.username}`} id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Log in</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
                 Another action
@@ -58,7 +59,15 @@ const Header = () => {
                 Profile
               </NavDropdown.Item>
             </NavDropdown>
-          </Nav>
+          </Nav>:
+          <>
+          <Button className='btn btn-dark' onClick={handleSignupBtn}>Sign up</Button>
+          <Button className='btn btn-light'onClick={handleLoginBtn}>Log in</Button>
+          </>
+          }
+          
+
+          
         </Navbar.Collapse>
       </Container>
     </Navbar>

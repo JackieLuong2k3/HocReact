@@ -4,12 +4,14 @@ import { FaUser, FaLock } from 'react-icons/fa'
 import { postLogin } from '../../service/apiService';
 import { Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-
+import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 const Login = () => {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const navigate=useNavigate()
+    const navigate=useNavigate();
+    const dispatch = useDispatch();
     const validateEmail = (username) => {
         return String(username)
           .toLowerCase()
@@ -29,10 +31,16 @@ const Login = () => {
         }
         let data = await postLogin(username,password);
         if (data && data.EC === 0) {
-            navigate("/")
+            dispatch({
+                type: 'FETCH_USER_LOGIN_SUCCESS',
+                payload: data
+            })
+            toast.success(data.EM)
+            navigate("/");
             
         }
         if (data && data.EC !== 0) {
+            toast.error(data.EM)
         }
         
     }
