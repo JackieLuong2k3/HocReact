@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
 .container-login{
-    background: rgb(120, 74, 156);
+    background: rgb(85 52 112);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -82,6 +82,26 @@
                 cursor: pointer; /* Pointer cursor on hover */
                 transition: all 0.3s ease; /* Smooth transition for hover effects */
                 margin-top: 10px;
+                &:disabled{
+                    background-color: #ccc; /* Light gray */
+    color: #666; /* Muted text color */
+                }
+                .loaderIcon {
+                    margin-right: 7px; // Space between the spinner and the text
+                    animation: spin 1s linear infinite; // Spinning animation
+                    display: inline-block; // Ensures proper alignment with text
+                    transform-origin: center; // Makes the rotation smooth around its center
+                  }
+                  
+                  @keyframes spin {
+                    from {
+                      transform: rotate(0deg);
+                    }
+                    to {
+                      transform: rotate(360deg);
+                    }
+                  }
+                              
             }
            a{
             color: white;

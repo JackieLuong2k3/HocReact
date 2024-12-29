@@ -1,3 +1,4 @@
+import { delay } from 'lodash';
 import axios from '../utils/axiosCustomize';
 
 const postCreateUser=(email,password,username,role,img)=>{
@@ -34,6 +35,20 @@ const getAllUserPaginate= (page , limit)=>{
     return axios.get(`api/v1/participant?page=${page}&limit=${limit}`)
 }
 const postLogin= (email,password)=>{
-    return axios.post(`api/v1/login`,{email,password})
+    return axios.post(`api/v1/login`,
+        {
+        email: email,
+        password: password,
+        delay: 5000
+    })
 }
-export {postCreateUser,getAllUser,putUpdateUser,deleteUser,getAllUserPaginate,postLogin} 
+const postRegister=(email,username,password)=>{
+    return axios.post(`api/v1/register`,
+        {
+            email:email,
+            username:username,
+            password:password
+        }
+    )
+}
+export {postCreateUser,getAllUser,putUpdateUser,deleteUser,getAllUserPaginate,postLogin,postRegister} 

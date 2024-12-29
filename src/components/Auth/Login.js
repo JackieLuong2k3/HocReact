@@ -1,35 +1,38 @@
 import { useState } from 'react';
 import '../Auth/Login.scss'
+import { ImSpinner8 } from "react-icons/im";
 import { FaUser, FaLock } from 'react-icons/fa'
 import { postLogin } from '../../service/apiService';
 import { Button, Form } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 const Login = () => {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const navigate=useNavigate();
+    const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const validateEmail = (username) => {
         return String(username)
-          .toLowerCase()
-          .match(
-            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-          );
-      };
+            .toLowerCase()
+            .match(
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            );
+    };
 
-    const handleBtnLogin = async() => {
+    const handleBtnLogin = async () => {
         const isInvaliEmail = validateEmail(username);
         if (!isInvaliEmail) {
             console.log("hihi");
             return;
         }
-        if(password==null){
+        if (password == null) {
 
         }
-        let data = await postLogin(username,password);
+        setIsLoading(true)
+        let data = await postLogin(username, password);
         if (data && data.EC === 0) {
             dispatch({
                 type: 'FETCH_USER_LOGIN_SUCCESS',
@@ -37,21 +40,21 @@ const Login = () => {
             })
             toast.success(data.EM)
             navigate("/");
-            
+
         }
         if (data && data.EC !== 0) {
             toast.error(data.EM)
         }
-        
+
     }
     return (
         <div className="container-login">
             <div className="wrapper">
                 <Form>
                     <h1>Login</h1>
-                    
+
                     {/* Email Input */}
-                    <Form.Group  controlId="formEmail">
+                    <Form.Group controlId="formEmail">
                         <Form.Label></Form.Label>
                         <div className="input-class">
                             <Form.Control
@@ -62,9 +65,9 @@ const Login = () => {
                             <FaUser className="icon" />
                         </div>
                     </Form.Group>
-                    
+
                     {/* Password Input */}
-                    <Form.Group  controlId="formPassword">
+                    <Form.Group controlId="formPassword">
                         <Form.Label></Form.Label>
                         <div className="input-class">
                             <Form.Control
@@ -78,26 +81,37 @@ const Login = () => {
 
                     {/* Remember Me and Forgot Password */}
                     <div className="remember-forgot">
-                        <Form.Check 
-                            type="checkbox" 
-                            label="Remember me" 
+                        <Form.Check
+                            type="checkbox"
+                            label="Remember me"
                         />
                         <a href="">Forgot Password?</a>
                     </div>
-                    
-                    {/* Login Button */}
-                    <Button 
-                        variant="primary" 
-                        className="w-100 mt-3" 
-                        onClick={() => handleBtnLogin()}
-                    >
-                        Login
-                    </Button>
-                    
+                    {
+                        isLoading
+                            ? 
+                            <Button
+                                variant="primary"
+                                className="w-100 mt-3"
+                                disabled ={isLoading}
+                                onClick={() => handleBtnLogin()}
+                            >
+                                <ImSpinner8 className="loaderIcon" style={{ transform: [{ rotate: '90deg' }] }} />
+                                Login
+                            </Button>
+                            :
+                            <Button
+                            variant="primary"
+                            className="w-100 mt-3"
+                            onClick={() => handleBtnLogin()}
+                        >
+                            Login
+                        </Button>                    
+                        }
                     {/* Sign Up */}
                     <div className="register">
                         <p>
-                            Don't have an account? <a href="">Sign Up</a>
+                            Don't have an account? <Link to={'/signup'}>Sign Up</Link>
                         </p>
                     </div>
                 </Form>

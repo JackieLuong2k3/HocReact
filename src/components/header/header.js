@@ -49,10 +49,6 @@ const Header = () => {
           </Nav>
           {isAuthenticated? <Nav>
             <NavDropdown title={`${account.username}`} id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Log in</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Another action
-              </NavDropdown.Item>
               <NavDropdown.Item href="#action/3.3">Log out</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="#action/3.4">
@@ -61,8 +57,8 @@ const Header = () => {
             </NavDropdown>
           </Nav>:
           <>
-          <Button className='btn btn-dark' onClick={handleSignupBtn}>Sign up</Button>
-          <Button className='btn btn-light'onClick={handleLoginBtn}>Log in</Button>
+          <Button className='btn btn-light' onClick={handleSignupBtn}>Sign up</Button>
+          <Button className='btn btn-dark'onClick={handleLoginBtn}>Log in</Button>
           </>
           }
           
