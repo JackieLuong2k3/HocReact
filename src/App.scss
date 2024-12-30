@@ -43,6 +43,7 @@ position: fixed
 
 .app-container{
   .header {
+    top: 0;
     .navbar {
       background: transparent;
       transition: all 0.3s ease-in-out;
@@ -71,6 +72,9 @@ position: fixed
         color: #61dafb !important;
       }
     }
+  }
+  .content{
+    margin-top: 60px;
   }
 }
 @media (min-width: 1400px) {
