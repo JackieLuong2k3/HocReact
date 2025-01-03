@@ -26,11 +26,12 @@ const QuizDetail = () => {
                 let answer = []
                 let image = null; let questionDescription = null
                 value.forEach((item, index) => {
-                    if (index == 0) {
+                    if (index === 0) {
                         image = item.image;
                         questionDescription = item.description
                     }
-                    answer.push(item.answers.description)
+                    item.answers.isSeleted = false;
+                    answer.push(item.answers);                    
                 })
                 return {
                     QuestionId: key, answer, questionDescription, image
@@ -38,9 +39,22 @@ const QuizDetail = () => {
 
             })
             .value()
-        console.log("check data ", data1);
+        console.log("check data ", data1);  
         setData(data1)
 
+    }
+    const handlePrev=()=>{
+        if(index >0){
+            setIndex(index-1)
+        }
+    }
+    const handleNext=()=>{
+        if(index<data.length-1){
+            setIndex(index+1)
+        }else{
+            setIndex(data.length-1)
+        }
+        
     }
 
     return (
@@ -51,7 +65,12 @@ const QuizDetail = () => {
                 </div>
                 <Question
                     index={index}
-                    dataQuiz={data && data.length>0? data[index] : []} />
+                    dataQuiz={data && data.length > 0 ? data[index] : []} />
+                <div>
+                    <button onClick={handlePrev} type="button" className="btn btn-primary">Prev</button>
+
+                    <button onClick={handleNext} type="button" className="btn btn-secondary">Next</button>
+                </div>
             </div>
             <div className="right-content">
                 countdown
