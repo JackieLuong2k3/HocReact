@@ -30,8 +30,8 @@ const QuizDetail = () => {
                         image = item.image;
                         questionDescription = item.description
                     }
-                    item.answers.isSeleted = false;
-                    answer.push(item.answers);                    
+                    item.answers.isSelected = false;
+                    answer.push(item.answers);
                 })
                 return {
                     QuestionId: key, answer, questionDescription, image
@@ -39,24 +39,50 @@ const QuizDetail = () => {
 
             })
             .value()
-        console.log("check data ", data1);  
+        console.log("check data ", data1);
         setData(data1)
 
     }
-    const handlePrev=()=>{
-        if(index >0){
-            setIndex(index-1)
+    const handlePrev = () => {
+        if (index > 0) {
+            setIndex(index - 1)
         }
     }
-    const handleNext=()=>{
-        if(index<data.length-1){
-            setIndex(index+1)
-        }else{
-            setIndex(data.length-1)
+    const handleNext = () => {
+        if (index < data.length - 1) {
+            setIndex(index + 1)
+        } else {
+            setIndex(data.length - 1)
         }
+    }
+    const handleCheckBox = (aid, qid) => {
         
-    }
+        const dataClone = [];
+        data.map((item) => {
+            dataClone.push(item)
+        })
+        console.log("clone",dataClone);
+        
+        let question = dataClone.find(item => +item.QuestionId === +qid)
+        
+            console.log("q", question);
+            let b = question.answer.map(item => {
+                if (item.id == +aid) {
+                    item.isSelected = !item.isSelected
+                }
+                return item;
+            })
+            question.answer = b;
+        
+        let index = dataClone.findIndex(item => +item.QuestionId === +qid)
+        if (index > -1) {
+            dataClone[index] = question
+            setData(dataClone)
+            console.log(data);
+            
+        }
 
+    }
     return (
         <div className="quiz-detail-container">
             <div className="left-content">
@@ -65,6 +91,7 @@ const QuizDetail = () => {
                 </div>
                 <Question
                     index={index}
+                    handleCheckBox={handleCheckBox}
                     dataQuiz={data && data.length > 0 ? data[index] : []} />
                 <div>
                     <button onClick={handlePrev} type="button" className="btn btn-primary">Prev</button>

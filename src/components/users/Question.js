@@ -3,8 +3,8 @@ import _ from "lodash";
 const Question = (props) => {
     const { dataQuiz, index } = props;
     const handleChecked=(e,aid,qid)=>{
-        console.log(e.target.checked,aid,qid);
-        
+        // console.log(e.target.checked,aid,qid);
+        props.handleCheckBox(aid,qid)
     }
     if (_.isEmpty(dataQuiz)) {
         return (<></>)
@@ -26,7 +26,13 @@ const Question = (props) => {
                     return (
                         <div className="answer" key={index}>
                             <div className="form-check">
-                                <input onChange={(event)=>{handleChecked(event,`${item.id}`,`${dataQuiz.QuestionId}`)}} className="form-check-input" type="checkbox" id="flexCheckDefault" />
+                                <input 
+                                className="form-check-input" 
+                                type="checkbox" 
+                                id="flexCheckDefault"
+                                onChange={(event)=>{handleChecked(event,`${item.id}`,`${dataQuiz.QuestionId}`)}} 
+                                checked={item.isSelected}
+                                />
                                 <label className="form-check-label" htmlFor="flexCheckDefault">
                                     {item.description}
                                 </label>
