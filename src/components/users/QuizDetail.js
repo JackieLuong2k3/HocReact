@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react"
 import { useParams, useLocation } from "react-router-dom"
-import { getQuizUserbyId } from "../../service/apiService";
+import { getQuizUserbyId,postSubmitQuiz } from "../../service/apiService";
 import './QuizDetail.scss'
 import _, { set } from "lodash";
 import Question from "./Question";
+import ModalResult from "./ModalResult";
 
 const QuizDetail = () => {
     const location = useLocation();
     const [data, setData] = useState([]);
     const [index, setIndex] = useState(0);
     const param = useParams();
+    const [dataSubmit, setDataSubmit] = useState({});
+    const [showHideModal,setShowHideModal]=useState(false)
     const quizid = param.id;
     useEffect(() => {
         fetchQuestionOfQuiz()
@@ -39,7 +42,6 @@ const QuizDetail = () => {
 
             })
             .value()
-        console.log("check data ", data1);
         setData(data1)
 
     }
@@ -56,32 +58,67 @@ const QuizDetail = () => {
         }
     }
     const handleCheckBox = (aid, qid) => {
-        
+
         const dataClone = [];
         data.map((item) => {
             dataClone.push(item)
         })
-        console.log("clone",dataClone);
-        
         let question = dataClone.find(item => +item.QuestionId === +qid)
-        
-            console.log("q", question);
-            let b = question.answer.map(item => {
-                if (item.id == +aid) {
-                    item.isSelected = !item.isSelected
-                }
-                return item;
-            })
-            question.answer = b;
-        
+        let b = question.answer.map(item => {
+            if (item.id == +aid) {
+                item.isSelected = !item.isSelected
+            }
+            return item;
+        })
+        question.answer = b;
+
         let index = dataClone.findIndex(item => +item.QuestionId === +qid)
         if (index > -1) {
             dataClone[index] = question
             setData(dataClone)
-            console.log(data);
-            
         }
 
+    }
+    const handleFinish = async () => {
+        // {
+        //     "quizId": 1,
+        //     "answers": [
+        //         { 
+        //             "questionId": 1,
+        //             "userAnswerId": [3]
+        //         },
+        //         { 
+        //             "questionId": 2,
+        //             "userAnswerId": [6]
+        //         }
+        //     ]
+        // }
+        let submit = {
+            quizId: +quizid,
+            answers: []
+        }
+        let answer=[]
+        data.forEach((question)=>{
+           let questionId= +question.QuestionId
+           let userAnswerId=[]
+           question.answer.forEach((answer)=>{
+            if (answer.isSelected==true) {
+                userAnswerId.push(+answer.id)
+            }
+           })
+           answer.push({
+            questionId,
+            userAnswerId
+        })
+        }) 
+        submit.answers=answer
+        console.log(submit);
+        // call api submit
+        let res = await postSubmitQuiz(submit);
+        console.log(res)
+        setShowHideModal(true)
+        setDataSubmit(res.DT)
+               
     }
     return (
         <div className="quiz-detail-container">
@@ -97,12 +134,20 @@ const QuizDetail = () => {
                     <button onClick={handlePrev} type="button" className="btn btn-primary">Prev</button>
 
                     <button onClick={handleNext} type="button" className="btn btn-secondary">Next</button>
+
+                    <button onClick={handleFinish} type="button" className="btn btn-warning">Finish</button>
                 </div>
             </div>
             <div className="right-content">
                 countdown
             </div>
+            <ModalResult
+            showHideModal={showHideModal}
+            setShowHideModal={setShowHideModal}
+            dataSubmit={dataSubmit}
+            />
         </div>
+        
     )
 
 }
