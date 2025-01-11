@@ -61,10 +61,10 @@ const SideBarAdmin = ({ image, collapsed, rtl, toggled, handleToggleSidebar }) =
             icon={<FaList/>}
             >
               <MenuItem>
-              <Link to="manage-user"/>
-              Manager User
+              <Link to="manage-user"/>Manager User
               </MenuItem>
-              <MenuItem>Manager Quiz</MenuItem>
+              <MenuItem>
+              <Link to="manage-quiz"/>Manager Quiz</MenuItem>
               <MenuItem>Manager Question</MenuItem>
 
             </SubMenu>
